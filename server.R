@@ -40,7 +40,7 @@ function(input, output, session) {
     latRng <- range(bounds$north, bounds$south)
     lngRng <- range(bounds$east, bounds$west)
 
-    subset(allzips,
+    subset(allzips, as.numeric(YEAR_MFR) >= as.numeric(input$reg_year) &
       latitude >= latRng[1] & latitude <= latRng[2] &
       longitude >= lngRng[1] & longitude <= lngRng[2])
   })
@@ -107,7 +107,7 @@ function(input, output, session) {
     #ifelse( exists(input$acraft_model), acModel <-input$acraft_model, acModel<-NULL)
     bb <- paste(input$engine_mfr, input$acraft_model, sep="/")
     selections <- c("ZIPCODE", "latitude", "longitude", "NO_ENG", "AC_MODEL", "ENG_MFR")
-    zipdata <- allzips[trimws(allzips$AC_WEIGHT) %in% input$ac_class & as.numeric(allzips$YEAR_MFR) > as.numeric(input$reg_year), selections ]
+    zipdata <- allzips[trimws(allzips$AC_WEIGHT) %in% input$ac_class & as.numeric(allzips$YEAR_MFR) >= as.numeric(input$reg_year), selections ]
 
     if (colorBy == "superzip") {
       # Color and palette are treated specially in the "superzip" case, because
@@ -122,20 +122,20 @@ function(input, output, session) {
     radius<-3700
     selections <- c("ZIPCODE", "latitude", "longitude", "NO_ENG", "AC_MODEL", "ENG_MFR")
     if (is.null(input$acraft_model) || is.na(input$acraft_model)){
-    	if( trimws(input$engine_mfr) == "NONE") 
-	  zipdata <- allzips[ (trimws(allzips$AC_WEIGHT) %in% input$ac_class & is.null(input$engine_mfr)|grepl(input$engine_mfr, allzips$ENG_MFR) & as.numeric(allzips$YEAR_MFR) > as.numeric(input$reg_year) ), selections ]   
+    	if(  is.null(input$engine_mfr) || is.na(input$engine_mfr) || trimws(input$engine_mfr) == "NONE") 
+	  zipdata <- allzips[ (trimws(allzips$AC_WEIGHT) %in% input$ac_class  & as.numeric(allzips$YEAR_MFR) >= as.numeric(input$reg_year) ), selections ]   
 	else
-	  zipdata <- allzips[ (trimws(allzips$AC_WEIGHT) %in% input$ac_class  & as.numeric(allzips$YEAR_MFR) > as.numeric(input$reg_year) ), selections ]   
-	
+	  zipdata <- allzips[ (trimws(allzips$AC_WEIGHT) %in% input$ac_class & is.null(input$engine_mfr)|grepl(input$engine_mfr, allzips$ENG_MFR) & as.numeric(allzips$YEAR_MFR) >= as.numeric(input$reg_year) ), selections ]   
     } else {
-    	zipdata <- allzips[ ( grepl(input$ac_class, allzips$AC_WEIGHT) & grepl(input$engine_mfr, allzips$ENG_MFR) & grepl(input$acraft_model, allzips$AC_MODEL) & as.numeric(allzips$YEAR_MFR) > as.numeric(input$reg_year) ),  c("ZIPCODE", "latitude", "longitude", "NO_ENG", "AC_MODEL", "ENG_MFR") ]
+    	zipdata <- allzips[ ( grepl(input$ac_class, allzips$AC_WEIGHT) & grepl(input$engine_mfr, allzips$ENG_MFR) & grepl(input$acraft_model, allzips$AC_MODEL) & as.numeric(allzips$YEAR_MFR) >= as.numeric(input$reg_year) ),  c("ZIPCODE", "latitude", "longitude", "NO_ENG", "AC_MODEL", "ENG_MFR") ]
     }
     bb <- paste(bb, sum(zipdata$NO_ENG),input$ac_class,  sep=":")
+    if (nrow(zipdata) > 10000) zipdata <- zipdata[sample.int(nrow(zipdata), 10000),]
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
       addCircles(~longitude, ~latitude, radius=radius, layerId=~ZIPCODE,
         stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
-      addLegend("bottomleft", pal=pal, values=colorData, title=bb,
+      addLegend("bottomright", pal=pal, values=colorData, title=bb,
         layerId="colorLegend")
   })
 

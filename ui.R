@@ -2,7 +2,8 @@ library(leaflet)
 
 # Choices for drop-downs
 #vars_1 <- lapply(allzips[!duplicated(allzips$AC_MFR), ]$AC_MFR, as.character)
-vars_2 <- lapply(allengines[!duplicated(allengines$ENG_MFR) & order(allengines$ENG_MFR, decreasing=T), ]$ENG_MFR, as.character)
+#vars_2 <- lapply(allengines[!duplicated(allengines$ENG_MFR) & order(allengines$ENG_MFR, decreasing=T), ]$ENG_MFR, as.character)
+vars_2 <- lapply(allzips[!duplicated(allzips$ENG_MFR) & order(allzips$ENG_MFR, decreasing=T), ]$ENG_MFR, as.character)
 vars_1 <- c(
   "CLASS 1" = "CLASS 1",
   "CLASS 2" = "CLASS 2",
