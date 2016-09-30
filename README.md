@@ -20,4 +20,4 @@ Dockerized service can be seamlessly built, maintained and deployed with simplic
 
     3. Use Marathon to deploy service to a Mesos farm on a public or private cloud: %curl -X POST http://<marthon_api>:8080/v2/apps -d @eingines.json -H "content-type:application/json"
 
-The dockerized applpication has been deployed on an [edge server](http://3.39.90.51:8080/) as well as on [AWS](http://10.202.89.121).
+The dockerized applpication has been deployed on an [edge server with CPU](http://3.39.90.51:8080/) and [GPU]()  as well as on [AWS](http://10.202.89.121).
