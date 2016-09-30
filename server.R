@@ -48,7 +48,7 @@ function(input, output, session) {
  # # Output engine model based by MFR selected
   observe({
     engine_models <- if (is.null(input$engine_mfr)) character(0) else {
-      filter(allzips, ENG_MFR %in% input$engine_mfr, AC_WEIGHT %in% input$ac_class ) %>%
+      filter(allzips, ENG_MFR %in% input$engine_mfr, AC_WEIGHT %in% input$ac_class, as.numeric(YEAR_MFR) >= as.numeric(input$reg_year) ) %>%
         `$`('AC_MODEL') %>%
         unique() %>%
         sort()
