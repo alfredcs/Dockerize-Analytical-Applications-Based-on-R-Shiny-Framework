@@ -13,7 +13,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "im.aghoo.: "dcos1-bootstrap.vms.crd.aghoo.com:5000/rshiny:1.4.6",
+      "image": "dcos1-bootstrap.vms.crd.aghoo.com:5000/rshiny:1.4.6",
       "network": "BRIDGE",
        "type": "DOCKER",
        "portMappings": [
