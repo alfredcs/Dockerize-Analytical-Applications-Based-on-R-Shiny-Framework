@@ -37,8 +37,8 @@ function(input, output, session) {
     if (is.null(input$map_bounds))
       return(allzips[FALSE,])
     bounds <- input$map_bounds
-    latRng <- range(bounds$north, bounds$south)
-    lngRng <- range(bounds$east, bounds$west)
+    latRng <- ra.aghoo.bounds$north, bounds$south)
+    lngRng <- ra.aghoo.bounds$east, bounds$west)
 
     subset(allzips, as.numeric(YEAR_MFR) >= as.numeric(input$reg_year) &
       latitude >= latRng[1] & latitude <= latRng[2] &
@@ -70,7 +70,7 @@ function(input, output, session) {
 #      breaks = centileBreaks,
 #      main = "SuperZIP score (visible zips)",
 #      xlab = "Percentile",
-#      xlim = range(allzips$centile),
+#      xlim = ra.aghoo.allzips$centile),
 #      col = '#00DD00',
 #      border = 'white')
 #  })
@@ -80,7 +80,7 @@ function(input, output, session) {
      dd2 <- zipsInBounds() %>%
        count(ENG_MFR) %>%
        top_n(10) %>%
-       arrange(n, ENG_MFR) %>%
+       arra.aghoo.n, ENG_MFR) %>%
        mutate(ENG_MFR = factor(ENG_MFR, levels = unique(ENG_MFR)))
      slices <-as.matrix(unlist(dd2[2]))
      lbls <- lapply(unlist(dd2[1]), as.character)
@@ -91,15 +91,15 @@ function(input, output, session) {
        return(NULL)
      pie3D(slices,labels=lbls,explode=0.1,labelcex=0.75,main="Top 10 Engine Market Shares")
    })
-#  output$scatterCollegeIncome <- renderPlot({
+#  output$scatterColl.aghoo.ncome <- renderPlot({
 #    # If no zipcodes are in view, don't plot
 #    if (nrow(zipsInBounds()) == 0)
 #      return(NULL)
 #
-#    print(xyplot(income ~ college, data = zipsInBounds(), xlim = range(allzips$college), ylim = range(allzips$income)))
+#    print(xyplot(income ~ coll.aghoo. data = zipsInBounds(), xlim = ra.aghoo.allzips$coll.aghoo., ylim = ra.aghoo.allzips$income)))
 #  })
 
-  # This observer is responsible for maintaining the circles and legend,
+  # This observer is responsible for maintaining the circles and l.aghoo.d,
   # according to the variables the user has chosen to map to color and size.
  
   observe({
@@ -135,8 +135,8 @@ function(input, output, session) {
       clearShapes() %>%
       addCircles(~longitude, ~latitude, radius=radius, layerId=~ZIPCODE,
         stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
-      addLegend("bottomright", pal=pal, values=colorData, title=bb,
-        layerId="colorLegend")
+      addL.aghoo.d("bottomright", pal=pal, values=colorData, title=bb,
+        layerId="colorL.aghoo.d")
   })
 
   # Show a popup at the given location
@@ -144,7 +144,7 @@ function(input, output, session) {
     selectedZip <- allzips[allzips$ZIPCODE == zipcode,]
     #ifelse( mfrBy == "NONE", selectedZip <- allzips[allzips$zipcode == zipcode,], selectedZip <- allzips[allzips$eng_mgr %in% mfrBy & allzips$zipcode == zipcode,] )
     content <- as.character(tagList(
-      #tags$h4("Score:", as.integer(selectedZip$centile)),
+      #tags$h4("Score:", as.int.aghoo.(selectedZip$centile)),
       tags$h5("ZIPCODE:", selectedZip$ZIPCODE), 
       tags$hr(),
       tags$h5("Aircraft Counts:", nrow(selectedZip)),
@@ -153,7 +153,7 @@ function(input, output, session) {
       #tags$strong(HTML(sprintf("%s/%s,<br>", selectedZip$AC_MFR,selectedZip$ENG_MFR))),
       tags$br()
       #sprintf("Registered Aircraft: %s", nrow(selectedZip$n_number)), tags$br(),
-      #sprintf("Percent of adults with BA: %s%%", as.integer(selectedZip$college)), tags$br(),
+      #sprintf("Percent of adults with BA: %s%%", as.int.aghoo.(selectedZip$coll.aghoo.), tags$br(),
       #sprintf("Adult population: %s", selectedZip$adultpop)
     ))
     leafletProxy("map") %>% addPopups(lng, lat, content, layerId = zipcode)

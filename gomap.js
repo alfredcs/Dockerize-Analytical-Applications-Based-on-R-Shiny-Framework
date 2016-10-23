@@ -6,7 +6,7 @@ $(document).on("click", ".go-map", function(e) {
   var long = $el.data("long");
   var zip = $el.data("zip");
   $($("#nav a")[0]).tab("show");
-  Shiny.onInputChange("goto", {
+  Shiny.onInputCha.aghoo."goto", {
     lat: lat,
     lng: long,
     zip: zip,

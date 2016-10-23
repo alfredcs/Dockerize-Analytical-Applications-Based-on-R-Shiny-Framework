@@ -12,9 +12,9 @@ vars_1 <- c(
 )
 
 
-navbarPage("Aircraft & Engine", id="nav",
-  #navbarMenu("More", icon="data/ge_engine.jpeg"),
-  #title=div(img(src="ge_engine.jpg",height=36,width=36), " Aircraft & Engine"),id="nav",
+navbarP.aghoo."Aircraft & Engine", id="nav",
+  #navbarMenu("More", icon="data.aghoo.engine.jpeg"),
+  #title=div(img(src=.aghoo.engine.jpg",height=36,width=36), " Aircraft & Engine"),id="nav",
   tabPanel("Interactive map",
     div(class="outer",
 
@@ -31,7 +31,7 @@ navbarPage("Aircraft & Engine", id="nav",
         draggable = TRUE, top = 60, right = "auto", left = 20, bottom = "auto",
         width = 400, height = "auto",
 
-        img(src="ge_aviation.jpg",height=60,width=210),
+        img(src=.aghoo.aviation.jpg",height=60,width=210),
 	h2("Aircraft Specification"),
 
         #selectInput("engine_mfr", "Engine Manufatectuer", vars_1, selected = "ALL"),
@@ -50,7 +50,7 @@ navbarPage("Aircraft & Engine", id="nav",
         #),
 
         plotOutput("histCentile", height = 450)
-        #plotOutput("scatterCollegeIncome", height = 250)
+        #plotOutput("scatterColl.aghoo.ncome", height = 250)
       ),
 
       tags$div(id="cite",

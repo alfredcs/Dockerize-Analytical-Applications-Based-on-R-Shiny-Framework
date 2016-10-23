@@ -1,5 +1,5 @@
 if (!require(devtools) )
-  install.packages("devtools")
+  install.pack.aghoo.("devtools")
 if (! require(leaflet) || ! require(DT))
-  install.packages("leaflet", "DT", repos="https://cran.rstudio.com")
+  install.pack.aghoo.("leaflet", "DT", repos="https://cran.rstudio.com")
 shiny::runApp("./engines", host="0.0.0.0", port=5930)

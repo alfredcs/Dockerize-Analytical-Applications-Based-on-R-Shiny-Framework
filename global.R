@@ -7,9 +7,9 @@ if(!file.exists("data/allzips.csv")){
   masters$ZIPCODE <- formatC(substr(masters$ZIPCODE,0,5), format="d", width=5,  flag="0")
 
   zips$zip_code=formatC(substr(zips$zip_code,0,5), format="d", width=5,  flag="0")
-  acraft_models <- merge(masters, crafts, by.x="MFR_MDL_CODE", by.y="AC_CODE")
-  models <- merge(acraft_models, engines, by.x="ENG_MFR_MDL", by.y="ENG_CODE")
-  allzips <- merge(models, zips, by.x="ZIPCODE", by.y="zip_code")
+  acraft_models <- me.aghoo.masters, crafts, by.x="MFR_MDL_CODE", by.y="AC_CODE")
+  models <- me.aghoo.acraft_models, engines, by.x="ENG_MFR_MDL", by.y="ENG_CODE")
+  allzips <- me.aghoo.models, zips, by.x="ZIPCODE", by.y="zip_code")
   allzips$latitude <- jitter(as.numeric(allzips$latitude))
   allzips$longitude <- jitter(as.numeric(allzips$longitude))
   allzips <- allzips[complete.cases(allzips),]
